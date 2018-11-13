@@ -10,10 +10,15 @@ class Events extends React.Component {
 
     render() {
         if (this.props.eventsStore.data !== null) {
+
             return (
-                <div>
-                    <img src={this.props.eventsStore.data[0].img_src}/>
-                    <p>si</p>
+                <div className="photo">
+                    {
+                        this.props.eventsStore.data.map(item => {
+                            return <img src={item.img_src}/>
+                        })
+                    }
+
                 </div>
             );
         } else {

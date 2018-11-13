@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 const App = () => {
     return (<Router>
-        <div className="pokedex_container">
+        <div className="">
             <Switch>
                 <Route exact path="/" component={Events}/>
             </Switch>
