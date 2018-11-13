@@ -10,12 +10,17 @@ class Events extends React.Component {
 
     render() {
         if (this.props.eventsStore.data !== null) {
-
+            console.log(this.props.eventsStore.data);
             return (
                 <div className="photo">
                     {
                         this.props.eventsStore.data.map(item => {
-                            return <img src={item.img_src}/>
+                            return (
+                                <div key={item.id} >
+                                    <p>Camera: {item.camera.full_name}</p>
+                                    <img src={item.img_src}/>
+                                </div>
+                            )
                         })
                     }
 
@@ -23,7 +28,7 @@ class Events extends React.Component {
             );
         } else {
             return (
-                <p>ładuje</p>
+                <p>Loading</p>
             );
         }
     }
