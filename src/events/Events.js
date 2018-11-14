@@ -11,8 +11,10 @@ class Events extends React.Component {
 
     goDate(event) {
         event.preventDefault();
-        let date = document.getElementById("date");
-        console.log(date.value);
+        let date = document.getElementById("date").value;
+        if (date !== "") {
+            this.props.getEvents(date);
+        }
     }
 
     render() {
