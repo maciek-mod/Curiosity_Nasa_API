@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions/events';
+import EventFilter from './eventFilter';
 
 class Events extends React.Component {
 
@@ -8,11 +9,20 @@ class Events extends React.Component {
         this.props.getEvents();
     }
 
+    goDate(event) {
+        event.preventDefault();
+        let date = document.getElementById("date");
+        console.log(date.value);
+    }
+
     render() {
         if (this.props.eventsStore.data !== null) {
             console.log(this.props.eventsStore.data);
             return (
                 <div className="photo">
+                    <EventFilter goDate={this.goDate.bind(this)} />
+                    <h2>Sol: {this.props.eventsStore.data[0].sol}</h2>
+                    <h2>Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
                     {
                         this.props.eventsStore.data.map(item => {
                             return (
