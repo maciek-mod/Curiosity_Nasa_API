@@ -39,6 +39,8 @@ export function getEvents(day){
         .then(data => dispatch(getEventsSuccess(
             data.photos
         )))
-        .catch(error => dispatch(getEventsError(error)));
+        .catch(error => dispatch(getEventsError(
+            error: true
+        )));
     };
 }

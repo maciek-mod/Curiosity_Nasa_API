@@ -19,25 +19,33 @@ class Events extends React.Component {
 
     render() {
         if (this.props.eventsStore.data !== null) {
-            console.log(this.props.eventsStore.data);
-            return (
-                <div className="photo">
-                    <EventFilter goDate={this.goDate.bind(this)} />
-                    <h2>Sol: {this.props.eventsStore.data[0].sol}</h2>
-                    <h2>Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
-                    {
-                        this.props.eventsStore.data.map(item => {
-                            return (
-                                <div key={item.id} >
-                                    <p>Camera: {item.camera.full_name}</p>
-                                    <img src={item.img_src}/>
-                                </div>
-                            )
-                        })
-                    }
-
-                </div>
-            );
+            if (this.props.eventsStore.data.length > 0) {
+                console.log(this.props.eventsStore.data);
+                return (
+                    <div className="photo">
+                        <EventFilter goDate={this.goDate.bind(this)} />
+                        <h2>Sol: {this.props.eventsStore.data[0].sol}</h2>
+                        <h2>Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
+                        {
+                            this.props.eventsStore.data.map(item => {
+                                return (
+                                    <div key={item.id} >
+                                        <p>Camera: {item.camera.full_name}</p>
+                                        <img src={item.img_src}/>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="photo">
+                        <EventFilter goDate={this.goDate.bind(this)} />
+                        choose another day
+                    </div>
+                );
+            }
         } else {
             return (
                 <p>Loading</p>
