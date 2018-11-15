@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/events';
 import EventFilter from './eventFilter';
 
+
+
 class Events extends React.Component {
 
     componentDidMount() {
@@ -10,17 +12,23 @@ class Events extends React.Component {
     }
 
     goDate(event) {
+        let error_paragraf =  document.getElementById("error");
         event.preventDefault();
         let date = document.getElementById("date").value;
         if (date !== "") {
             this.props.getEvents(date);
+            error_paragraf.classList.remove("show");
+            error_paragraf.innerHTML = "";
+        } else {
+            console.log(error_paragraf);
+            error_paragraf.classList.add("show");
+            error_paragraf.innerHTML = "choose the correct date";
         }
     }
 
     render() {
         if (this.props.eventsStore.data !== null) {
             if (this.props.eventsStore.data.length > 0) {
-                console.log(this.props.eventsStore.data);
                 return (
                     <div className="photo">
                         <EventFilter goDate={this.goDate.bind(this)} />

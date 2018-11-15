@@ -7,6 +7,7 @@ const EvenFilter = (props) => {
         <form>
             <input id="date" type="date"></input>
             <input type="submit" value="Submit" onClick={props.goDate}></input>
+            <p id="error"></p>
         </form>
     );
 };
