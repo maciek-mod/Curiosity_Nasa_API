@@ -18,9 +18,8 @@ class Events extends React.Component {
         if (date !== "") {
             this.props.getEvents(date);
             error_paragraf.classList.remove("show");
-            error_paragraf.innerHTML = "";
+            // error_paragraf.innerHTML = "";
         } else {
-            console.log(error_paragraf);
             error_paragraf.classList.add("show");
             error_paragraf.innerHTML = "choose the correct date";
         }
@@ -40,14 +39,10 @@ class Events extends React.Component {
         }
 
         element.src = img_src;
-        // img_container.appendChild(element);
         popup.classList.add("show");
 
         close.addEventListener("click", function(event){
-            // var delete_element = img_container.getElementsByTagName("IMG")[0];
-            // console.log(delete_element);
             popup.classList.remove("show");
-            // img_container.removeChild(delete_element);
             element.src = "";
             if (popup.classList.contains("width")) {
                 popup.classList.remove("width");
@@ -60,26 +55,28 @@ class Events extends React.Component {
             if (this.props.eventsStore.data.length > 0) {
                 return (
                     <div className="container">
-                        <EventFilter goDate={this.goDate.bind(this)} />
-                        <h2>Sol: {this.props.eventsStore.data[0].sol}</h2>
-                        <h2>Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
+                        <EventFilter goDate={this.goDate.bind(this)} anotherDay={false} />
+                        <h2 className="sol">Sol: {this.props.eventsStore.data[0].sol}</h2>
+                        <h2 className="day">Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
+                        <div className="photo_flex">
                         {
                             this.props.eventsStore.data.map(item => {
                                 return (
-                                    <div key={item.id} className="photoContainer">
+                                    <div key={item.id} className="photo_box">
                                         <p>Camera: {item.camera.full_name}</p>
                                         <img onClick={this.showFull.bind(this)} src={item.img_src}/>
                                     </div>
                                 )
                             })
                         }
+                        </div>
                     </div>
                 );
             } else {
                 return (
-                    <div className="photo">
-                        <EventFilter goDate={this.goDate.bind(this)} />
-                        choose another day
+                    <div className="container">
+                        <EventFilter goDate={this.goDate.bind(this)} anotherDay={true} />
+                        {document.getElementById("error").classList.add("show")}
                     </div>
                 );
             }

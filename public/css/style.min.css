@@ -102,6 +102,8 @@ body {
   @media (max-width: 1023px) and (orientation: landscape) {
     .popup .img_container {
       height: 90vh; }
+      .popup .img_container .close {
+        top: 0; }
     .popup img {
       height: 100%; }
     .popup.width .img_container {
@@ -109,15 +111,59 @@ body {
       width: 90vw; }
       .popup.width .img_container img {
         height: auto;
-        width: 100%; } }
+        width: 100%; }
+      .popup.width .img_container .close {
+        top: -40px;
+        right: 0; } }
   @media (max-width: 1023px) and (orientation: portrait) {
     .popup .img_container {
       width: 90vw; }
+      .popup .img_container .close {
+        right: 0; }
     .popup img {
       width: 100%; } }
   @media (min-width: 1024px) {
     .popup img {
       max-width: 90vw;
       max-height: 90vh; } }
+
+#root {
+  padding-top: 15px; }
+  #root h2.sol, #root h2.day {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.5; }
+  #root .photo_flex {
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; }
+    #root .photo_flex .photo_box {
+      flex-basis: 100%;
+      max-width: 100%;
+      margin-bottom: 15px; }
+      @media (min-width: 768px) {
+        #root .photo_flex .photo_box {
+          flex-basis: 32%;
+          max-width: 32%;
+          margin-bottom: 20px; } }
+      #root .photo_flex .photo_box p {
+        font-size: 16px;
+        font-weight: bold;
+        padding-bottom: 5px; }
+      #root .photo_flex .photo_box img {
+        cursor: pointer; }
+  #root form {
+    display: flex;
+    flex-wrap: wrap; }
+    #root form #error {
+      flex-basis: 100%;
+      max-width: 100%;
+      font-size: 20px;
+      padding: 10px 0;
+      color: red;
+      display: none; }
+      #root form #error.show {
+        display: block; }
 
 /*# sourceMappingURL=style.min.css.map */

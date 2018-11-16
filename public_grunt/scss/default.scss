@@ -47,6 +47,7 @@ body{
     height: 100vh;
     background: rgba(0,0,0, .8);
     display: none;
+
     &.show{
         display: flex;
         align-items: center;
@@ -68,6 +69,9 @@ body{
     @media (max-width: 1023px) and (orientation: landscape){
         .img_container{
             height: 90vh;
+            .close{
+                top: 0;
+            }
         }
 
         img{
@@ -82,12 +86,19 @@ body{
                     height: auto;
                     width: 100%;
                 }
+                .close{
+                    top: -40px;
+                    right: 0;
+                }
             }
         }
     }
     @media (max-width: 1023px) and (orientation: portrait){
         .img_container{
             width: 90vw;
+            .close{
+                right: 0;
+            }
         }
         img{
             width: 100%;
@@ -97,6 +108,55 @@ body{
         img{
             max-width: 90vw;
             max-height: 90vh;
+        }
+    }
+}
+
+#root{
+    padding-top: 15px;
+    h2.sol ,h2.day{
+        font-size: 30px;
+        font-weight: bold;
+        line-height: 1.5;
+    }
+    .photo_flex{
+        padding-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .photo_box{
+            flex-basis: 100%;
+            max-width: 100%;
+            margin-bottom: 15px;
+            @media (min-width: 768px){
+                flex-basis: 32%;
+                max-width: 32%;
+                margin-bottom: 20px;
+            }
+            p{
+                font-size: 16px;
+                font-weight: bold;
+                padding-bottom: 5px;
+            }
+            img{
+                cursor: pointer;
+            }
+        }
+    }
+    form{
+        display: flex;
+        flex-wrap: wrap;
+        #error{
+            flex-basis: 100%;
+            max-width: 100%;
+            font-size: 20px;
+            padding: 10px 0;
+            color: red;
+            display: none;
+            &.show{
+                display: block;
+            }
         }
     }
 }
