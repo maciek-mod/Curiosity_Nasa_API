@@ -129,7 +129,8 @@ body {
 
 #root {
   padding-top: 15px; }
-  #root h2.sol, #root h2.day {
+  #root h2.day,
+  #root h2.sol {
     font-size: 30px;
     font-weight: bold;
     line-height: 1.5; }
@@ -157,13 +158,15 @@ body {
     display: flex;
     flex-wrap: wrap; }
     #root form #error {
-      flex-basis: 100%;
-      max-width: 100%;
-      font-size: 20px;
-      padding: 10px 0;
-      color: red;
       display: none; }
       #root form #error.show {
         display: block; }
+  #root #error,
+  #root .error {
+    flex-basis: 100%;
+    max-width: 100%;
+    font-size: 20px;
+    padding: 10px 0;
+    color: red; }
 
 /*# sourceMappingURL=style.min.css.map */

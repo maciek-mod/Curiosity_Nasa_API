@@ -18,7 +18,7 @@ class Events extends React.Component {
         if (date !== "") {
             this.props.getEvents(date);
             error_paragraf.classList.remove("show");
-            // error_paragraf.innerHTML = "";
+            error_paragraf.innerHTML = "";
         } else {
             error_paragraf.classList.add("show");
             error_paragraf.innerHTML = "choose the correct date";
@@ -55,7 +55,7 @@ class Events extends React.Component {
             if (this.props.eventsStore.data.length > 0) {
                 return (
                     <div className="container">
-                        <EventFilter goDate={this.goDate.bind(this)} anotherDay={false} />
+                        <EventFilter goDate={this.goDate.bind(this)} />
                         <h2 className="sol">Sol: {this.props.eventsStore.data[0].sol}</h2>
                         <h2 className="day">Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
                         <div className="photo_flex">
@@ -75,8 +75,8 @@ class Events extends React.Component {
             } else {
                 return (
                     <div className="container">
-                        <EventFilter goDate={this.goDate.bind(this)} anotherDay={true} />
-                        {document.getElementById("error").classList.add("show")}
+                        <EventFilter goDate={this.goDate.bind(this)}/>
+                        <p className="error">Choose another day</p>
                     </div>
                 );
             }
