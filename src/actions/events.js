@@ -30,7 +30,11 @@ export function getEventsError(error){
 export function getEvents(day){
 
     if (day === undefined) {
-        day = '2018-11-13';
+        let date = new Date(),
+            year = date.getFullYear(),
+            month = date.getMonth() + 1,
+            dayNumber = date.getDate() - 1;
+        day = year + "-" +  month + "-" + dayNumber;
     }
     return (dispatch) => {
         dispatch(getEventsStart());

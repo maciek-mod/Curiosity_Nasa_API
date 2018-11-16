@@ -138,7 +138,7 @@ body {
     padding-top: 15px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; }
+    justify-content: space-around; }
     #root .photo_flex .photo_box {
       flex-basis: 100%;
       max-width: 100%;
