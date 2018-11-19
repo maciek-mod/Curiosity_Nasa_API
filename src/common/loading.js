@@ -1,15 +1,23 @@
 import React from 'react';
 
 const Loading = (props) => {
-    return(
-        <div id="loader">
-            <div className="loader">
-                <div className="loader__page"></div>
-                <div className="loader__page"></div>
-                <div className="loader__page"></div>
+    if (props.isLoading) {
+        return(
+            <div id="loader">
+                <div className="loader">
+                    <div className="loader__page"></div>
+                    <div className="loader__page"></div>
+                    <div className="loader__page"></div>
+                </div>
             </div>
-        </div> 
-    )
+        )
+    } else{
+        return(
+            <div>
+                {props.children}
+            </div>
+        )
+    }
 };
 
 

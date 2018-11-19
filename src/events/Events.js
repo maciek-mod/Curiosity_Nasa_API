@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/events';
 import EventFilter from './eventFilter';
 import EventItem from './eventItem';
-import Loading from "../common/loading"; 
+import Loading from "../common/loading";
 
 class Events extends React.Component {
 
@@ -51,38 +51,30 @@ class Events extends React.Component {
     }
 
     render() {
-        if (this.props.eventsStore.isLoading) {
-            return(
-                <Loading />
-            );
-        }
-        if (this.props.eventsStore.data !== null) {
-            if (this.props.eventsStore.data.length > 0) {
-                return (
-                    <div className="container">
-                        <EventFilter goDate={this.goDate.bind(this)} />
-                        <h2 className="sol">Sol: {this.props.eventsStore.data[0].sol}</h2>
-                        <h2 className="day">Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
-                        <div className="photo_flex">
-                        {
-                            this.props.eventsStore.data.map(item => {
-                                return <EventItem cameraName={item.camera.full_name} key={item.id} srcImg={item.img_src} showFull={this.showFull.bind(this)} altImg={item.camera.name} />
-                            })
-                        }
+        return(
+            <Loading isLoading={this.props.eventsStore.isLoading}>
+                { this.props.eventsStore.isLoading === false && this.props.eventsStore.data.length > 0
+                    ?
+                        <div className="container">
+                            <EventFilter goDate={this.goDate.bind(this)} />
+                            <h2 className="sol">Sol: {this.props.eventsStore.data[0].sol}</h2>
+                            <h2 className="day">Earth day: {this.props.eventsStore.data[0].earth_date}</h2>
+                            <div className="photo_flex">
+                            {
+                                this.props.eventsStore.data.map(item => {
+                                    return <EventItem cameraName={item.camera.full_name} key={item.id} srcImg={item.img_src} showFull={this.showFull.bind(this)} altImg={item.camera.name} />
+                                })
+                            }
+                            </div>
                         </div>
-                    </div>
-                );
-            } else {
-                return (
-                    <div className="container">
-                        <EventFilter goDate={this.goDate.bind(this)}/>
-                        <p className="error">Choose another day</p>
-                    </div>
-                );
-            }
-        } else {
-            return null
-        }
+                    :
+                        <div className="container">
+                            <EventFilter goDate={this.goDate.bind(this)}/>
+                            <p className="error">Choose another day</p>
+                        </div>
+                    }
+            </Loading>
+        )
     }
 };
 
