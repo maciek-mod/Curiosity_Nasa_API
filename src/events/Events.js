@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions/events';
 import EventFilter from './eventFilter';
-
-
+import EventItem from './eventItem';
+import Loading from "../common/loading"; 
 
 class Events extends React.Component {
 
@@ -51,6 +51,11 @@ class Events extends React.Component {
     }
 
     render() {
+        if (this.props.eventsStore.isLoading) {
+            return(
+                <Loading />
+            );
+        }
         if (this.props.eventsStore.data !== null) {
             if (this.props.eventsStore.data.length > 0) {
                 return (
@@ -61,12 +66,7 @@ class Events extends React.Component {
                         <div className="photo_flex">
                         {
                             this.props.eventsStore.data.map(item => {
-                                return (
-                                    <div key={item.id} className="photo_box">
-                                        <p>Camera: {item.camera.full_name}</p>
-                                        <img onClick={this.showFull.bind(this)} src={item.img_src}/>
-                                    </div>
-                                )
+                                return <EventItem cameraName={item.camera.full_name} key={item.id} srcImg={item.img_src} showFull={this.showFull.bind(this)} altImg={item.camera.name} />
                             })
                         }
                         </div>
@@ -81,9 +81,7 @@ class Events extends React.Component {
                 );
             }
         } else {
-            return (
-                <p>Loading</p>
-            );
+            return null
         }
     }
 };

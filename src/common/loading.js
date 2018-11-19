@@ -1,17 +1,15 @@
 import React from 'react';
 
 const Loading = (props) => {
-    if (props.isLoading) {
-        return (
-            <div className="loading_container">
-                <div className="pokeball">
-                    <div className="pokeball__button"></div>
-                </div>
+    return(
+        <div id="loader">
+            <div className="loader">
+                <div className="loader__page"></div>
+                <div className="loader__page"></div>
+                <div className="loader__page"></div>
             </div>
-        );
-    } else {
-        return props.children;
-    }
+        </div> 
+    )
 };
 
 

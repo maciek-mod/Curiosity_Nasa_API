@@ -8,13 +8,12 @@ const EvenFilter = (props) => {
             <input id="date" type="date"></input>
             <input type="submit" value="Submit" onClick={props.goDate}></input>
             <p id="error"></p>
-        </form>
+        </form>  
     );
 };
 
 EvenFilter.propTypes = {
-    // filter: PropTypes.string.isRequired,
-    goDate: PropTypes.func.isRequired,
+    goDate: PropTypes.func.isRequired
 
 };
 

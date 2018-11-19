@@ -36,12 +36,15 @@ export function getEvents(day){
             dayNumber = date.getDate() - 1;
         day = year + "-" +  month + "-" + dayNumber;
     }
+
+
+
     return (dispatch) => {
         dispatch(getEventsStart());
         fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date='+ day +'&api_key=' + constants.API_KEY)
         .then(response => response.json())
         .then(data => dispatch(getEventsSuccess(
-            data.photos
+            data.photos,
         )))
         .catch(error => dispatch(getEventsError(
             error: true

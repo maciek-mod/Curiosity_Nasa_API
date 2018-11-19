@@ -7,6 +7,9 @@ $grey: #484646;
 $red: #f05759;
 $grey-border: #adacac;
 
+$peter-river:#3498db;
+$clouds:#ecf0f1;
+
 @mixin transition($time) {
     -webkit-transition: all $time ease-in-out;
     -moz-transition: all $time ease-in-out;

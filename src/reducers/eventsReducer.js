@@ -5,7 +5,7 @@ const initialState = {
     test: false,
     error: false,
     isError: false,
-    isLoading: false
+    isLoading: true
 };
 
 export function eventsReducer(state = initialState, action){
@@ -13,7 +13,7 @@ export function eventsReducer(state = initialState, action){
         case constants.EVENTS_GET_START:
             return {...state, isLoading: true};
         case constants.EVENTS_GET_SUCCESS:
-            return {...initialState, isLoading: false, data: action.payload.data};
+            return {...initialState, data: action.payload.data, isLoading: false};
         case constants.EVENTS_GET_ERROR:
             return {...state, isLoading: false, isError: true, error: action.payload.error};
         default:
