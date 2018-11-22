@@ -5,6 +5,8 @@ import EventFilter from './eventFilter';
 import EventItem from './eventItem';
 import Loading from "../common/loading";
 
+var date = null;
+
 class Events extends React.Component {
 
     componentDidMount() {
@@ -14,15 +16,24 @@ class Events extends React.Component {
     goDate(event) {
         let error_paragraf =  document.getElementById("error");
         event.preventDefault();
-        let date = document.getElementById("date").value;
+        date = document.getElementById("date").value;
         if (date !== "") {
             this.props.getEvents(date);
             error_paragraf.classList.remove("show");
             error_paragraf.innerHTML = "";
         } else {
             error_paragraf.classList.add("show");
-            error_paragraf.innerHTML = "choose the correct date";
+            error_paragraf.innerHTML = "Choose the correct date";
         }
+        return date;
+    }
+    checkDate(){
+      let now = new Date().toISOString().slice(0,10);
+      if (date > now) {
+        return "Choose another date.";
+      } else {
+        return "This day Curiosity doesn't send photos.";
+      }
     }
 
     showFull(el){
@@ -51,6 +62,7 @@ class Events extends React.Component {
     }
 
     render() {
+
         return(
             <Loading isLoading={this.props.eventsStore.isLoading}>
                 { this.props.eventsStore.isLoading === false && this.props.eventsStore.data.length > 0
@@ -70,7 +82,7 @@ class Events extends React.Component {
                     :
                         <div className="container">
                             <EventFilter goDate={this.goDate.bind(this)}/>
-                            <p className="error">Choose another day</p>
+                            <p className="error">{this.checkDate()}</p>
                         </div>
                     }
             </Loading>

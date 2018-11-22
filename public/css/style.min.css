@@ -154,12 +154,16 @@ body {
         padding-bottom: 5px; }
       #root .photo_flex .photo_box img {
         cursor: pointer; }
-  #root form {
+  #root .form h1 {
+    font-size: 25px;
+    padding-bottom: 15px;
+    font-weight: 700; }
+  #root .form form {
     display: flex;
     flex-wrap: wrap; }
-    #root form #error {
+    #root .form form #error {
       display: none; }
-      #root form #error.show {
+      #root .form form #error.show {
         display: block; }
   #root #error,
   #root .error {

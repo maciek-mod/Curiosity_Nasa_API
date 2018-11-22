@@ -158,17 +158,24 @@ body {
         }
     }
 
-    form {
-        display: flex;
-        flex-wrap: wrap;
+    .form{
+      h1{
+        font-size: 25px;
+        padding-bottom: 15px;
+        font-weight: 700;
+      }
+      form {
+          display: flex;
+          flex-wrap: wrap;
 
-        #error {
-            display: none;
+          #error {
+              display: none;
 
-            &.show {
-                display: block;
-            }
-        }
+              &.show {
+                  display: block;
+              }
+          }
+      }
     }
 
     #error,
