@@ -4,6 +4,7 @@ import * as actions from '../actions/events';
 import EventFilter from './eventFilter';
 import EventItem from './eventItem';
 import Loading from "../common/loading";
+import * as constants from '../constants';
 
 var date = null;
 
@@ -11,6 +12,11 @@ class Events extends React.Component {
 
     componentDidMount() {
         this.props.getEvents();
+    }
+    componentDidUpdate() {
+        if (date !== null && document.getElementById("date")) {
+            document.getElementById("date").value = date;
+        }
     }
 
     goDate(event) {
@@ -27,6 +33,7 @@ class Events extends React.Component {
         }
         return date;
     }
+
     checkDate(){
       let now = new Date().toISOString().slice(0,10);
       if (date > now) {

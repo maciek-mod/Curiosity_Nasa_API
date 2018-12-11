@@ -35,6 +35,7 @@ export function getEvents(day){
             month = date.getMonth() + 1,
             dayNumber = date.getDate() - 1;
         day = year + "-" +  month + "-" + dayNumber;
+
     }
 
 
