@@ -6,16 +6,28 @@ import EventItem from './eventItem';
 import Loading from "../common/loading";
 import * as constants from '../constants';
 
-var date = null;
+var date = null,
+    day = null;
 
 class Events extends React.Component {
 
     componentDidMount() {
-        this.props.getEvents();
+
+        let date = new Date(),
+            year = date.getFullYear(),
+            month = date.getMonth() + 1,
+            dayNumber = date.getDate() - 1;
+            day = year + "-" +  month + "-" + dayNumber;
+        this.props.getEvents(day);
+
+        return day;
     }
     componentDidUpdate() {
         if (date !== null && document.getElementById("date")) {
             document.getElementById("date").value = date;
+        }
+        if (day !== null && document.getElementById("date")) {
+            document.getElementById("date").value = day;
         }
     }
 
