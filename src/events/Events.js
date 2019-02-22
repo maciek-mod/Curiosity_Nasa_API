@@ -16,56 +16,61 @@ var date = null,
 class Events extends React.Component {
 
     componentDidMount() {
-
-        day = this.getDate();
+        day = this.getDateStart();
         this.checkDateApi(day);
-
-        return day;
     }
 
-    getDate(element){
-        if (element === undefined) {
-            let date = new Date(),
-                year = date.getFullYear(),
-                month = date.getMonth() + 1,
-                dayNumber = date.getDate();
-            return year + "-" + month + "-" + dayNumber;
-        } else {
-            let date = new Date(),
-                year = date.getFullYear(),
-                month = date.getMonth() + 1,
-                dayNumber = date.getDate() - element;
-            return year + "-" + month + "-" + dayNumber;
+    getDateStart(element){
+        let date = new Date(),
+            year = date.getFullYear(),
+            month = date.getMonth() + 1,
+            dayNumber = date.getDate();
+        if (month < 10) {
+            month = '0' + month;
         }
+        if (dayNumber < 10) {
+            dayNumber = '0' + dayNumber;
+        }
+        return year + "-" + month + "-" + dayNumber;
 
     }
     componentDidUpdate() {
-        if (date !== null && document.getElementById("date")) {
-            document.getElementById("date").value = date;
-        }
-        if (day !== null && document.getElementById("date")) {
+        // let choose_day = document.querySelector(".day span");
+        // if (choose_day) {
+        //     this.setDate(choose_day.textContent);
+        // }
+    }
+
+    setDate() {
+        if (document.getElementById("date")) {
+            console.log("a " + date);
             document.getElementById("date").value = day;
         }
     }
     backDay(day){
-        var date = new Date(day);
-        var date_back = date.getFullYear()+"-"+ (date.getMonth() + 1) +"-" + (date.getDate() - 1);
-        return date_back;
+        let date = new Date(day);
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let dayNumber = date.getDate() - 1;
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (dayNumber < 10) {
+            dayNumber = '0' + dayNumber;
+        }
+        return year + "-" + month + "-" + dayNumber;
     }
 
     checkDateApi(day) {
-
         fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date='+ day +'&api_key=' + constants.API_KEY)
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result.photos.length);
                     if (result.photos.length === 0) {
                         this.checkDateApi(this.backDay(day));
 
                     } else {
-                        var date = new Date(day);
-                        this.props.getEvents(date.getFullYear()+"-"+ (date.getMonth() + 1) +"-" + (date.getDate()));
+                        this.props.getEvents(day);
                     }
                 },
                 (error) => {
@@ -87,7 +92,6 @@ class Events extends React.Component {
             error_paragraf.classList.add("show");
             error_paragraf.innerHTML = "Choose the correct date";
         }
-        return date;
     }
 
     checkDate() {
@@ -141,9 +145,9 @@ class Events extends React.Component {
                 h2 className = "sol" > Sol : {
                     this.props.eventsStore.data[0].sol
                 } < /h2> <
-                h2 className = "day" > Earth day: {
+                h2 className = "day" > Earth day: <span>{
                     this.props.eventsStore.data[0].earth_date
-                } < /h2> <
+                }  </span>< /h2> <
                 div className = "photo_flex" > {
                     this.props.eventsStore.data.map(item => {
                         return <EventItem cameraName = {
@@ -180,6 +184,7 @@ class Events extends React.Component {
             } <
             /Loading>
         )
+
     }
 };
 
