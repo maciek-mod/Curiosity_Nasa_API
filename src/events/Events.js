@@ -35,15 +35,15 @@ class Events extends React.Component {
 
     }
     componentDidUpdate() {
-        // let choose_day = document.querySelector(".day span");
-        // if (choose_day) {
-        //     this.setDate(choose_day.textContent);
-        // }
+        let choose_day = document.querySelector(".day span");
+        if (choose_day) {
+            this.setDate(choose_day.textContent);
+        }
     }
 
-    setDate() {
+    setDate(day) {
         if (document.getElementById("date")) {
-            console.log("a " + date);
+            day = day.replace(/\s/g, "");
             document.getElementById("date").value = day;
         }
     }
