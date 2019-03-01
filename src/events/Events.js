@@ -37,7 +37,6 @@ class Events extends React.Component {
         let choose_day = document.querySelector(".day span");
         if (choose_day) {
             this.setDate(choose_day.textContent);
-            // console.log(this.isValidDate(choose_day.textContent.replace(/\s/g, "")));
         }
     }
 
@@ -103,7 +102,6 @@ class Events extends React.Component {
     }
 
     checkDateApi(day) {
-        console.log(day);
         fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date='+ day +'&api_key=' + constants.API_KEY)
             .then(res => res.json())
             .then(
