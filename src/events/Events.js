@@ -11,7 +11,6 @@ import fetch from 'isomorphic-fetch';
 
 var date = null,
     day = null;
-    // day_back = 0;
 
 class Events extends React.Component {
 
@@ -38,7 +37,22 @@ class Events extends React.Component {
         let choose_day = document.querySelector(".day span");
         if (choose_day) {
             this.setDate(choose_day.textContent);
+            // console.log(this.isValidDate(choose_day.textContent.replace(/\s/g, "")));
         }
+    }
+
+    isValidDate(date){
+        let backDate = this.backDay(date);
+        let matches = /^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})$/.exec(backDate);
+
+        if (matches === null) return false;
+        let d = matches[3];
+        let m = matches[2];
+        let y = matches[1];
+        let composedDate = new Date(y, m, d);
+        return composedDate.getDate() == d &&
+                composedDate.getMonth() == m &&
+                composedDate.getFullYear() == y;
     }
 
     setDate(day) {
@@ -47,27 +61,59 @@ class Events extends React.Component {
             document.getElementById("date").value = day;
         }
     }
-    backDay(day){
-        let date = new Date(day);
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let dayNumber = date.getDate() - 1;
-        if (month < 10) {
-            month = '0' + month;
+
+    daysInMonth (month, year) {
+        return new Date(year, month, 0).getDate();
+    }
+
+    backDay(day, backMonth){
+
+
+        if (backMonth === true) {
+
+            let date = new Date(day);
+            let year = date.getFullYear();
+            let month = date.getMonth();
+            let dayNumber = this.daysInMonth(month, year);
+
+            if (month < 10) {
+                month = '0' + month;
+            }
+            if (dayNumber < 10) {
+                dayNumber = '0' + dayNumber;
+            }
+            return year + "-" + month + "-" + dayNumber;
+
+        } else {
+
+            let date = new Date(day);
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let dayNumber = date.getDate() - 1;
+            if (month < 10) {
+                month = '0' + month;
+            }
+            if (dayNumber < 10) {
+                dayNumber = '0' + dayNumber;
+            }
+            return year + "-" + month + "-" + dayNumber;
+
         }
-        if (dayNumber < 10) {
-            dayNumber = '0' + dayNumber;
-        }
-        return year + "-" + month + "-" + dayNumber;
+
     }
 
     checkDateApi(day) {
+        console.log(day);
         fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date='+ day +'&api_key=' + constants.API_KEY)
             .then(res => res.json())
             .then(
                 (result) => {
                     if (result.photos.length === 0) {
-                        this.checkDateApi(this.backDay(day));
+                        if (this.isValidDate(day)) {
+                            this.checkDateApi(this.backDay(day));
+                        } else{
+                            this.checkDateApi(this.backDay(day, true));
+                        }
 
                     } else {
                         this.props.getEvents(day);
